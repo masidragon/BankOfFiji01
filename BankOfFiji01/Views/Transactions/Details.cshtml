@@ -1,0 +1,66 @@
+﻿@model BankOfFiji01.Models.Transactions
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transactions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Trans_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trans_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trans_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trans_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trans_Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trans_Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trans_Adjustment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trans_Adjustment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bank_Account.Acc_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bank_Account.Acc_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction_Type.Transac_Type_Descript)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction_Type.Transac_Type_Descript)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Trans_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

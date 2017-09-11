@@ -1,0 +1,22 @@
+﻿@using BankOfFiji01.Controllers
+<aside class="main-sidebar">
+    <section class="sidebar">
+        @* BEGIN Menu *@
+        <ul class="sidebar-menu">
+            <li class="header">Menu</li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(HomeController.Dashboard) ? "active" : "")">
+                <a href="@Url.Action("Dashboard", "Home")"><i class="fa fa-home"></i> <span>Dashboard</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.Transfer) ? "active" : "")">
+                <a href="@Url.Action("Transfer", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Transfers</span></a>
+            </li>
+           <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.BankStatement) ? "active" : "")">
+                <a href="@Url.Action("BankStatement", "Transaction")"><i class="fa fa-link"></i> <span>Bank Statement</span></a>
+            </li>@*
+    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(HomeController.AnotherLink) ? "active" : "")">
+        <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Loans</span></a>
+    </li>*@
+        </ul>
+        @* END Menu *@
+    </section>
+</aside>
