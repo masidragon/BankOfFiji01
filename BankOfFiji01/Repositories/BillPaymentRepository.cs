@@ -117,6 +117,30 @@ namespace BankOfFiji01.Models
             return accounts;
         }
 
+
+        public static async Task<List<Account>> GetTimeperiod()
+        {
+            int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
+
+            var ListContent = new List<Account>();
+
+            Account NewQuery = new Account();
+
+            NewQuery.UserID = CustIDHandler;
+            NewQuery.ID = 0;
+
+            var client = new HttpClient();
+            var content = JsonConvert.SerializeObject(NewQuery);
+            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("http://localhost:55303/getintervals", httpContent);
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var accounts = JsonConvert.DeserializeObject<List<Account>>(jsonString);
+
+            return accounts;
+        }
+
+
         public static async Task<string> EnableTransfer(TransferViewModel info)
         {
             Transfer NewQuery = new Transfer();
@@ -125,6 +149,11 @@ namespace BankOfFiji01.Models
             NewQuery.Transac_Type_ID = info.Transac_Type_ID;
             NewQuery.TransferAcc_ID = info.TransferAcc_ID;
             NewQuery.Trans_Amount = info.Trans_Amount;
+            NewQuery.StartDate = info.startDate;
+            NewQuery.EndDate = info.endDate;
+            NewQuery.Interval = info.Period;
+
+
 
             var client = new HttpClient();
             var content = JsonConvert.SerializeObject(NewQuery);

@@ -66,8 +66,10 @@
         <div class="form-group">
             <label class="control-label col-md-2">Select the Time Period </label>
             <div class="col-md-10">
+
                 @Html.DropDownListFor(model => model.Period, Model.TransferPeriod, new { style = "width: 500px;", id = "TransferFrom" })
-                @Html.ValidationMessageFor(model => model.TransferPeriod, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.Period, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Period, "", new { @class = "text-danger" })
             </div>
         </div>
 

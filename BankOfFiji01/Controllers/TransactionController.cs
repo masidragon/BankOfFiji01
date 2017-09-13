@@ -301,6 +301,7 @@ namespace BankOfFiji01.Controllers
             }
 
             var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
+            //var Timeperiod = await BillPaymentRepository.GetTimeperiod();
 
             TransferViewModel CreateVM = new TransferViewModel();
 
@@ -334,9 +335,101 @@ namespace BankOfFiji01.Controllers
                 }
             }
 
+            //foreach (var item in Timeperiod)
+            //{
+            //    CreateVM.CompanyAccounts.Add(new SelectListItem()
+            //    {
+            //        Text = String.Concat(item.ID, " - ", item.Type),
+            //        Value = item.ID.ToString()
+            //    });
+            //}
+
             return View(CreateVM);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AutoTransfer(TransferViewModel transactions)
+        {
+            if (ModelState.IsValid)
+            {
+                lock (lockThis)
+                {
+                    DateTime DateHandler = DateTime.Now;
+
+                    //Check if seelcted second account
+                    if (transactions.TransferAcc_ID == 0)
+                    {
+                        TempData["Error"] = "You did not select an account to transfer to!";
+                        return RedirectToAction("AutoTransfer");
+                    }
+
+                    // Check if minimum transfer amount met
+                    if (transactions.Trans_Amount < 10)
+                    {
+                        TempData["Error"] = "You did not meet the minimum transfer amount!";
+                        return RedirectToAction("AutoTransfer");
+                    }
+
+
+                    if (transactions.startDate < DateTime.Now)
+                    {
+                        TempData["Error"] = "You did not Specify a correct start date";
+                        return RedirectToAction("AutoTransfer");
+                    }
+
+                    if (transactions.endDate < DateTime.Now)
+                    {
+                        TempData["Error"] = "You did not Specify a correct end date";
+                        return RedirectToAction("AutoTransfer");
+                    }
+
+                    if (transactions.endDate < transactions.startDate)
+                    {
+                        TempData["Error"] = "Please Check your dates";
+                        return RedirectToAction("AutoTransfer");
+                    }
+                    //Check if 2 decimal places
+                    decimal argument = transactions.Trans_Amount;
+                    int count = BitConverter.GetBytes(decimal.GetBits(argument)[3])[2];
+
+                    if (count != 2)
+                    {
+                        TempData["Error"] = "Please enter 2 digits after the decimal place!";
+                        return RedirectToAction("AutoTransfer");
+                    }
+
+
+
+                    Transactions NewTransfer = new Transactions();
+
+                }
+
+                // ID for Transfers
+                //transactions.Transac_Type_ID = 3;
+                try
+                {
+                    var content = await TransferRepository.EnableTransfer(transactions);
+
+                    if (content[0] == 'Y')
+                    {
+                        TempData["Success"] = content;
+                        return RedirectToAction("AutoTransfer");
+                    }
+
+                    TempData["Error"] = content;
+                    return RedirectToAction("AutoTransfer");
+                }
+                catch
+                {
+                    TempData["Error"] = "An error seems to have occured to the return of information from the DB";
+                    return RedirectToAction("AutoTransfer");
+                }
+
+            }
+            return View(transactions);
+        }
 
 
 
@@ -468,6 +561,7 @@ namespace BankOfFiji01.Controllers
             }
 
             var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
+            //var Timeperiod = await BillPaymentRepository.GetTimeperiod();
 
             TransferViewModel CreateVM = new TransferViewModel();
 
@@ -500,8 +594,99 @@ namespace BankOfFiji01.Controllers
                     });
                 }
             }
+            //foreach (var item in Timeperiod)
+            //{
+            //    CreateVM.CompanyAccounts.Add(new SelectListItem()
+            //    {
+            //        Text = String.Concat(item.ID, " - ", item.Type),
+            //        Value = item.ID.ToString()
+            //    });
+            //}
 
             return View(CreateVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AutoTransferAnotherAccount(TransferViewModel transactions)
+        {
+            if (ModelState.IsValid)
+            {
+                lock (lockThis)
+                {
+                    DateTime DateHandler = DateTime.Now;
+
+                    //Check if seelcted second account
+                    if (transactions.TransferAcc_ID == 0)
+                    {
+                        TempData["Error"] = "You did not select an account to transfer to!";
+                        return RedirectToAction("AutoTransferAnotherAccount");
+                    }
+
+                    // Check if minimum transfer amount met
+                    if (transactions.Trans_Amount < 10)
+                    {
+                        TempData["Error"] = "You did not meet the minimum transfer amount!";
+                        return RedirectToAction("AutoTransferAnotherAccount");
+                    }
+
+
+                    if (transactions.startDate < DateTime.Now)
+                    {
+                        TempData["Error"] = "You did not Specify a correct start date";
+                        return RedirectToAction("AutoTransferAnotherAccount");
+                    }
+
+                    if (transactions.endDate < DateTime.Now)
+                    {
+                        TempData["Error"] = "You did not Specify a correct end date";
+                        return RedirectToAction("AutoTransferAnotherAccount");
+                    }
+
+                    if (transactions.endDate < transactions.startDate)
+                    {
+                        TempData["Error"] = "Please Check your dates";
+                        return RedirectToAction("AutoTransferAnotherAccount");
+                    }
+                    //Check if 2 decimal places
+                    decimal argument = transactions.Trans_Amount;
+                    int count = BitConverter.GetBytes(decimal.GetBits(argument)[3])[2];
+
+                    if (count != 2)
+                    {
+                        TempData["Error"] = "Please enter 2 digits after the decimal place!";
+                        return RedirectToAction("AutoTransferAnotherAccount");
+                    }
+
+
+
+                    Transactions NewTransfer = new Transactions();
+
+                }
+
+                // ID for Transfers
+                //transactions.Transac_Type_ID = 3;
+                try
+                {
+                    var content = await TransferRepository.EnableTransfer(transactions);
+
+                    if (content[0] == 'Y')
+                    {
+                        TempData["Success"] = content;
+                        return RedirectToAction("AutoTransferAnotherAccount");
+                    }
+
+                    TempData["Error"] = content;
+                    return RedirectToAction("AutoTransferAnotherAccount");
+                }
+                catch
+                {
+                    TempData["Error"] = "An error seems to have occured to the return of information from the DB";
+                    return RedirectToAction("AutoTransferAnotherAccount");
+                }
+
+            }
+            return View(transactions);
         }
 
         // GET: Transactions/Delete/5

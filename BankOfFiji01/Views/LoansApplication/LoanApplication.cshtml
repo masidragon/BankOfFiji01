@@ -18,7 +18,7 @@
     </div>
 }
 
-@using (Html.BeginForm("LoanApplication", "LoanApplication", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("LoanApplication", "LoansApplication", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -46,6 +46,7 @@
             <label class="control-label col-md-2">Select Loan Type: </label>
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.LoanID, Model.LoanType, new { style = "width: 500px;" })
+                @*@Html.EditorFor(model => model.LoanID, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.LoanType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,6 +55,7 @@
             <label class="control-label col-md-2">Select an asset for loan security </label>
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.AssetID, Model.Assets, new { style = "width: 500px;" })
+                @*@Html.EditorFor(model => model.AssetID, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Assets, "", new { @class = "text-danger" })
             </div>
         </div>
