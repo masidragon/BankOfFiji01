@@ -1,0 +1,113 @@
+﻿@model BankOfFiji01.Models.TransferViewModel
+
+@{
+    ViewBag.Title = "Auto BillPayments";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="callout callout-success">
+        <p><strong>Success:</strong> @TempData["Success"].ToString()</p>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="callout callout-danger">
+        <p><strong>Error:</strong> @TempData["Error"].ToString()</p>
+    </div>
+}
+@{
+    string defaultdate = DateTime.Now.ToString();
+
+}
+
+<script>
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        startDate: '-3d'
+    });
+</script>
+
+@using (Html.BeginForm("AutoBillPayment", "BillPayments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Enter the Amount: $</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Trans_Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Trans_Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select the Account to transfer money from: </label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Acc_ID, Model.MyAccountsSelectListItem, new { style = "width: 500px;", id = "TransferFrom" })
+                @Html.ValidationMessageFor(model => model.MyAccountsSelectListItem, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select the Account to make Bill Payment to: </label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TransferAcc_ID, Model.CompanyAccounts, new { style = "width: 500px;" })
+                @Html.ValidationMessageFor(model => model.MyOtherAccounts, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select the Time Period </label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Period, Model.TransferPeriod, new { style = "width: 500px;", id = "TransferFrom" })
+                @Html.ValidationMessageFor(model => model.TransferPeriod, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Start Date:</label>
+            <div class="col-md-10">
+                <div class="col-md-2 input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control datepicker", style = "width: 300px;", type = "datetime", value = defaultdate, inputmask = "'alias': 'dd/mm/yyyy'" } })
+                    @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">End Date:</label>
+            <div class="col-md-10">
+                <div class="col-md-2 input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control datepicker", style = "width: 300px;", type = "datetime", value = defaultdate, inputmask = "'alias': 'dd/mm/yyyy'" } })
+                    @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" id="Start BillPayment" name="Start BillPayment" value="Start BillPayment" class="btn btn-success btn-block">
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+
+
+

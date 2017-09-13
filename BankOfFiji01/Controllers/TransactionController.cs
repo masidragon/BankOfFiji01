@@ -289,6 +289,61 @@ namespace BankOfFiji01.Controllers
             return View(transactions);
         }
 
+        public async Task<ActionResult> AutoTransfer()
+        {
+            int info = Convert.ToInt32(Session["CustID"]);
+
+            var CheckEligibility = await TransferRepository.CheckBankAccountCount(info);
+
+            if (CheckEligibility <= 1)
+            {
+                RedirectToAction("TransferInvalid");
+            }
+
+            var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
+
+            TransferViewModel CreateVM = new TransferViewModel();
+
+            int counter = 0;
+            int first = 0;
+
+            foreach (var number in AccountNumbers)
+            {
+                if (counter == 0)
+                {
+                    first = number.ID;
+                }
+
+                CreateVM.MyAccountsSelectListItem.Add(new SelectListItem()
+                {
+                    Text = String.Concat(number.ID, " - ", number.Type),
+                    Value = number.ID.ToString()
+                });
+                counter++;
+            }
+
+            foreach (var number in AccountNumbers)
+            {
+                if (number.ID != first)
+                {
+                    CreateVM.MyOtherAccounts.Add(new SelectListItem()
+                    {
+                        Text = String.Concat(number.ID, " - ", number.Type),
+                        Value = number.ID.ToString()
+                    });
+                }
+            }
+
+            return View(CreateVM);
+        }
+
+
+
+
+
+
+
+
 
         public async Task<ActionResult> TransferAnotherAccount()
         {
@@ -400,40 +455,54 @@ namespace BankOfFiji01.Controllers
             }
             return View(transactions);
         }
-        // GET: Transactions/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Transactions transactions = db.Transactions.Find(id);
-        //    if (transactions == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.Acc_ID = new SelectList(db.Bank_Account, "Acc_ID", "Acc_ID", transactions.Acc_ID);
-        //    ViewBag.Transac_Type_ID = new SelectList(db.Transaction_Type, "Transac_Type_ID", "Transac_Type_Descript", transactions.Transac_Type_ID);
-        //    return View(transactions);
-        //}
 
-        // POST: Transactions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Trans_ID,Subject_Account,Trans_Date,Trans_Amount,Trans_Adjustment,Acc_ID,Transac_Type_ID")] Transactions transactions)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(transactions).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.Acc_ID = new SelectList(db.Bank_Account, "Acc_ID", "Acc_ID", transactions.Acc_ID);
-        //    ViewBag.Transac_Type_ID = new SelectList(db.Transaction_Type, "Transac_Type_ID", "Transac_Type_Descript", transactions.Transac_Type_ID);
-        //    return View(transactions);
-        //}
+        public async Task<ActionResult> AutoTransferAnotherAccount()
+        {
+            int info = Convert.ToInt32(Session["CustID"]);
+
+            var CheckEligibility = await TransferRepository.CheckBankAccountCount(info);
+
+            if (CheckEligibility <= 1)
+            {
+                RedirectToAction("TransferInvalid");
+            }
+
+            var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
+
+            TransferViewModel CreateVM = new TransferViewModel();
+
+            int counter = 0;
+            int first = 0;
+
+            foreach (var number in AccountNumbers)
+            {
+                if (counter == 0)
+                {
+                    first = number.ID;
+                }
+
+                CreateVM.MyAccountsSelectListItem.Add(new SelectListItem()
+                {
+                    Text = String.Concat(number.ID, " - ", number.Type),
+                    Value = number.ID.ToString()
+                });
+                counter++;
+            }
+
+            foreach (var number in AccountNumbers)
+            {
+                if (number.ID != first)
+                {
+                    CreateVM.MyOtherAccounts.Add(new SelectListItem()
+                    {
+                        Text = String.Concat(number.ID, " - ", number.Type),
+                        Value = number.ID.ToString()
+                    });
+                }
+            }
+
+            return View(CreateVM);
+        }
 
         // GET: Transactions/Delete/5
         public ActionResult Delete(int? id)

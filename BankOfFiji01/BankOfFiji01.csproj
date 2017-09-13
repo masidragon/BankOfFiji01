@@ -275,6 +275,9 @@
     <Compile Include="Models\AssetType.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Automatic_Payment_State.cs">
+      <DependentUpon>BOFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AutoPayments.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>
     </Compile>
@@ -330,9 +333,6 @@
       <DependentUpon>BOFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TaxRates.cs">
@@ -404,6 +404,9 @@
     <Content Include="Views\Transaction\TransferAnotherAccount.cshtml" />
     <Content Include="Views\BillPayments\BillPayment.cshtml" />
     <Content Include="Views\LoansApplication\LoanApplication.cshtml" />
+    <Content Include="Views\BillPayments\AutoBillPayment.cshtml" />
+    <Content Include="Views\Transaction\AutoTransfer.cshtml" />
+    <Content Include="Views\Transaction\AutoTransferAnotherAccount.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

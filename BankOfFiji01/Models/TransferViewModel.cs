@@ -13,6 +13,7 @@ namespace BankOfFiji01.Models
             MyAccountsSelectListItem = new List<SelectListItem>();
             MyOtherAccounts = new List<SelectListItem>();
             CompanyAccounts = new List<SelectListItem>();
+            TransferPeriod = new List<SelectListItem>();
 
         }
 
@@ -24,11 +25,15 @@ namespace BankOfFiji01.Models
 
         public IList<SelectListItem> MyOtherAccounts { get; set; }
         public IList<SelectListItem> CompanyAccounts { get; set; }
-
+        public IList<SelectListItem> TransferPeriod { get; set; }
 
         public int TransferAcc_ID { get; set; }
         public int Transac_Type_ID { get; set; }
         public decimal Trans_Amount { get; set; }
         public int Acc_ID { get; set; }
+
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+        public int Period { get; set; }
     }
 }

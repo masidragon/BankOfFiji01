@@ -34,6 +34,7 @@ namespace BankOfFiji01.Models
         public decimal totalInterest { get; set; }
         public int taxId { get; set; }
         public int accountStatusId { get; set; }
+        public Nullable<System.DateTime> interestdate { get; set; }
     
         public virtual AccountStatus AccountStatus { get; set; }
         public virtual AccountType AccountType { get; set; }

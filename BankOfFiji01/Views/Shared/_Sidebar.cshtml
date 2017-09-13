@@ -18,8 +18,17 @@
             <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.Transfer) ? "active" : "")">
                 <a href="@Url.Action("Transfer", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Transfers To Your Accounts</span></a>
             </li>
+
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.Transfer) ? "active" : "")">
+                <a href="@Url.Action("AutoTransfer", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Auto Transfers To Your Accounts</span></a>
+            </li>
+
             <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.TransferAnotherAccount) ? "active" : "")">
                 <a href="@Url.Action("TransferAnotherAccount", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Transfers To Another Customer</span></a>
+            </li>
+
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.TransferAnotherAccount) ? "active" : "")">
+                <a href="@Url.Action("AutoTransferAnotherAccount", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Auto Transfers To Another Customer</span></a>
             </li>
         </ul>
             <ul class="sidebar-menu">
@@ -28,7 +37,7 @@
                     <a href="@Url.Action("BillPayment", "BillPayments")"><i class="fa fa-link"></i> <span>Manual Bill Payment</span></a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(BillPaymentsController.BillPayment) ? "active" : "")">
-                    <a href="@Url.Action("BillPayment", "BillPayments")"><i class="fa fa-link"></i> <span>Automatic Bill Payment</span></a>
+                    <a href="@Url.Action("AutoBillPayment", "BillPayments")"><i class="fa fa-link"></i> <span>Automatic Bill Payment</span></a>
                 </li>
              </ul>
         <ul class="sidebar-menu">

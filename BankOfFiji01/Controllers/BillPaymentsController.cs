@@ -123,5 +123,50 @@ namespace BankOfFiji01.Controllers
             }
             return View(transactions);
         }
+
+        public async Task<ActionResult> AutoBillPayment()
+        {
+            int info = Convert.ToInt32(Session["CustID"]);
+
+            var CheckEligibility = await TransferRepository.CheckBankAccountCount(info);
+
+            if (CheckEligibility <= 1)
+            {
+                RedirectToAction("TransferInvalid");
+            }
+
+            var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
+            var Companies = await BillPaymentRepository.GetCompanyAccounts();
+
+            TransferViewModel CreateVM = new TransferViewModel();
+
+            int counter = 0;
+            int first = 0;
+
+            foreach (var number in AccountNumbers)
+            {
+                if (counter == 0)
+                {
+                    first = number.ID;
+                }
+
+                CreateVM.MyAccountsSelectListItem.Add(new SelectListItem()
+                {
+                    Text = String.Concat(number.ID, " - ", number.Type),
+                    Value = number.ID.ToString()
+                });
+                counter++;
+            }
+
+            foreach (var item in Companies)
+            {
+                CreateVM.CompanyAccounts.Add(new SelectListItem()
+                {
+                    Text = String.Concat(item.ID, " - ", item.AccountName),
+                    Value = item.ID.ToString()
+                });
+            }
+            return View(CreateVM);
+        }
     }
 }
