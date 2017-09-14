@@ -103,6 +103,9 @@ namespace BankOfFiji01.Models
             NewQuery.Transac_Type_ID = info.Transac_Type_ID;
             NewQuery.TransferAcc_ID = info.TransferAcc_ID;
             NewQuery.Trans_Amount = info.Trans_Amount;
+            NewQuery.StartDate = info.startDate;
+            NewQuery.EndDate = info.endDate;
+            NewQuery.Interval = info.Period;
 
             var client = new HttpClient();
             var content = JsonConvert.SerializeObject(NewQuery);

@@ -26,8 +26,8 @@ namespace BankOfFiji01.Controllers
             }
 
             var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
-            //var assets = await LoansRepository.GetAssets();
-            //var loanlist = await LoansRepository.GetLoanTypes();
+            var assets = await LoansRepository.GetAssets();
+            var loanlist = await LoansRepository.GetLoanTypes();
             LoanViewModel CreateVM = new LoanViewModel();
 
             int counter = 0;
@@ -48,31 +48,31 @@ namespace BankOfFiji01.Controllers
                 counter++;
             }
 
-            //foreach (var number in loanlist)
-            //{
+            foreach (var number in loanlist)
+            {
 
 
-            //    CreateVM.LoanType.Add(new SelectListItem()
-            //    {
-            //        Text = String.Concat(number.ID, " - ", number.Type),
-            //        Value = number.ID.ToString()
-            //    });
-            //}
+                CreateVM.LoanType.Add(new SelectListItem()
+                {
+                    Text = String.Concat(number.LoanID),
+                    Value = number.LoanDescription
+                });
+            }
 
-            //foreach (var number in assets)
-            //{
-            //    if (counter == 0)
-            //    {
-            //        first = number.ID;
-            //    }
+            foreach (var number in assets)
+            {
+                if (counter == 0)
+                {
+                    first = number.AssetID;
+                }
 
-            //    CreateVM.Assets.Add(new SelectListItem()
-            //    {
-            //        Text = String.Concat(number.ID, " - ", number.Type),
-            //        Value = number.ID.ToString()
-            //    });
-            //    counter++;
-            //}
+                CreateVM.Assets.Add(new SelectListItem()
+                {
+                    Text = String.Concat(number.AssetID),
+                    Value = number.AssetDescription
+                });
+                counter++;
+            }
 
             return View(CreateVM);
         }

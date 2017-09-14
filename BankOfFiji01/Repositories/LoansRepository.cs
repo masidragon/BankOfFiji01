@@ -1,4 +1,5 @@
-﻿using BankOfFiji01.Models;
+﻿using BankOfFiji_WebAPI.Models;
+using BankOfFiji01.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace BankOfFiji01.Repositories
 {
     public class LoansRepository
     {
-        public static async Task<List<Account>> GetLoanTypes()
+        public static async Task<List<LoanTypes>> GetLoanTypes()
         {
             int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
 
@@ -30,13 +31,13 @@ namespace BankOfFiji01.Repositories
             var response = await client.PostAsync("http://localhost:55303/loantype", httpContent);
 
             var jsonString = await response.Content.ReadAsStringAsync();
-            var accounts = JsonConvert.DeserializeObject<List<Account>>(jsonString);
+            var accounts = JsonConvert.DeserializeObject<List<LoanTypes>>(jsonString);
 
             return accounts;
         }
 
 
-        public static async Task<List<Account>> GetAssets()
+        public static async Task<List<AssetTypes>> GetAssets()
         {
             int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
 
@@ -53,7 +54,7 @@ namespace BankOfFiji01.Repositories
             var response = await client.PostAsync("http://localhost:55303/assettypes", httpContent);
 
             var jsonString = await response.Content.ReadAsStringAsync();
-            var accounts = JsonConvert.DeserializeObject<List<Account>>(jsonString);
+            var accounts = JsonConvert.DeserializeObject<List<AssetTypes>>(jsonString);
 
             return accounts;
         }

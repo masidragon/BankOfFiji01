@@ -25,6 +25,7 @@ namespace BankOfFiji01.Controllers
 
             var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
             var Companies = await BillPaymentRepository.GetCompanyAccounts();
+            var Timeperiod = await BillPaymentRepository.GetTimeperiod();
 
             TransferViewModel CreateVM = new TransferViewModel();
 
@@ -53,6 +54,15 @@ namespace BankOfFiji01.Controllers
                     
                     Text=String.Concat(item.ID, " - ", item.Type),
                     Value = item.ID.ToString()
+                });
+            }
+
+            foreach (var item in Timeperiod)
+            {
+                CreateVM.TransferPeriod.Add(new SelectListItem()
+                {
+                    Text = String.Concat(item.IntervalDescription),
+                    Value = item.IntervalID.ToString()
                 });
             }
             return View(CreateVM);
@@ -171,10 +181,10 @@ namespace BankOfFiji01.Controllers
 
             foreach (var item in Timeperiod)
             {
-                CreateVM.CompanyAccounts.Add(new SelectListItem()
+                CreateVM.TransferPeriod.Add(new SelectListItem()
                 {
-                    Text = String.Concat(item.ID, " - ", item.Type),
-                    Value = item.ID.ToString()
+                    Text = String.Concat(item.IntervalDescription),
+                    Value = item.IntervalID.ToString()
                 });
             }
             return View(CreateVM);
@@ -239,7 +249,7 @@ namespace BankOfFiji01.Controllers
                 }
 
                 // ID for Transfers
-                //transactions.Transac_Type_ID = 3;
+                transactions.Transac_Type_ID = 4;
                 try
                 {
                     var content = await TransferRepository.EnableTransfer(transactions);

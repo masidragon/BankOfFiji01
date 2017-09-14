@@ -275,6 +275,7 @@
     <Compile Include="Models\AssetType.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssetTypes.cs" />
     <Compile Include="Models\Automatic_Payment_State.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>
     </Compile>
@@ -309,6 +310,7 @@
     <Compile Include="Models\InterestRates.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Intervals.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\LoanApplications.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>
@@ -322,6 +324,7 @@
     <Compile Include="Models\LoanType.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoanTypes.cs" />
     <Compile Include="Models\LoanViewModel.cs" />
     <Compile Include="Models\Roles.cs">
       <DependentUpon>BOFModel.tt</DependentUpon>

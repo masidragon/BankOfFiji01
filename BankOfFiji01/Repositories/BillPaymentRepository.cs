@@ -118,24 +118,14 @@ namespace BankOfFiji01.Models
         }
 
 
-        public static async Task<List<Account>> GetTimeperiod()
+        public static async Task<List<Intervals>> GetTimeperiod()
         {
-            int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
-
-            var ListContent = new List<Account>();
-
-            Account NewQuery = new Account();
-
-            NewQuery.UserID = CustIDHandler;
-            NewQuery.ID = 0;
-
             var client = new HttpClient();
-            var content = JsonConvert.SerializeObject(NewQuery);
-            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("http://localhost:55303/getintervals", httpContent);
+
+            var response = await client.GetAsync("http://localhost:55303/getintervals");
 
             var jsonString = await response.Content.ReadAsStringAsync();
-            var accounts = JsonConvert.DeserializeObject<List<Account>>(jsonString);
+            var accounts = JsonConvert.DeserializeObject<List<Intervals>>(jsonString);
 
             return accounts;
         }

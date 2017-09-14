@@ -301,7 +301,7 @@ namespace BankOfFiji01.Controllers
             }
 
             var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
-            //var Timeperiod = await BillPaymentRepository.GetTimeperiod();
+            var Timeperiod = await BillPaymentRepository.GetTimeperiod();
 
             TransferViewModel CreateVM = new TransferViewModel();
 
@@ -335,14 +335,14 @@ namespace BankOfFiji01.Controllers
                 }
             }
 
-            //foreach (var item in Timeperiod)
-            //{
-            //    CreateVM.CompanyAccounts.Add(new SelectListItem()
-            //    {
-            //        Text = String.Concat(item.ID, " - ", item.Type),
-            //        Value = item.ID.ToString()
-            //    });
-            //}
+            foreach (var item in Timeperiod)
+            {
+                CreateVM.TransferPeriod.Add(new SelectListItem()
+                {
+                    Text = String.Concat(item.IntervalDescription),
+                    Value = item.IntervalID.ToString()
+                });
+            }
 
             return View(CreateVM);
         }
@@ -362,6 +362,12 @@ namespace BankOfFiji01.Controllers
                     if (transactions.TransferAcc_ID == 0)
                     {
                         TempData["Error"] = "You did not select an account to transfer to!";
+                        return RedirectToAction("AutoTransfer");
+                    }
+
+                    if (transactions.Period == 0)
+                    {
+                        TempData["Error"] = "You did not select an payment interval!";
                         return RedirectToAction("AutoTransfer");
                     }
 
@@ -407,7 +413,7 @@ namespace BankOfFiji01.Controllers
                 }
 
                 // ID for Transfers
-                //transactions.Transac_Type_ID = 3;
+                transactions.Transac_Type_ID = 3;
                 try
                 {
                     var content = await TransferRepository.EnableTransfer(transactions);
@@ -450,7 +456,7 @@ namespace BankOfFiji01.Controllers
             }
 
             var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
-
+            var Timeperiod = await BillPaymentRepository.GetTimeperiod();
             TransferViewModel CreateVM = new TransferViewModel();
 
             int counter = 0;
@@ -483,6 +489,14 @@ namespace BankOfFiji01.Controllers
                 }
             }
 
+            foreach (var item in Timeperiod)
+            {
+                CreateVM.TransferPeriod.Add(new SelectListItem()
+                {
+                    Text = String.Concat(item.IntervalDescription),
+                    Value = item.IntervalID.ToString()
+                });
+            }
             return View(CreateVM);
         }
 
@@ -561,7 +575,7 @@ namespace BankOfFiji01.Controllers
             }
 
             var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
-            //var Timeperiod = await BillPaymentRepository.GetTimeperiod();
+            var Timeperiod = await BillPaymentRepository.GetTimeperiod();
 
             TransferViewModel CreateVM = new TransferViewModel();
 
@@ -594,14 +608,14 @@ namespace BankOfFiji01.Controllers
                     });
                 }
             }
-            //foreach (var item in Timeperiod)
-            //{
-            //    CreateVM.CompanyAccounts.Add(new SelectListItem()
-            //    {
-            //        Text = String.Concat(item.ID, " - ", item.Type),
-            //        Value = item.ID.ToString()
-            //    });
-            //}
+            foreach (var item in Timeperiod)
+            {
+                CreateVM.TransferPeriod.Add(new SelectListItem()
+                {
+                    Text = String.Concat(item.IntervalDescription),
+                    Value = item.IntervalID.ToString()
+                });
+            }
 
             return View(CreateVM);
         }
@@ -668,6 +682,8 @@ namespace BankOfFiji01.Controllers
                 //transactions.Transac_Type_ID = 3;
                 try
                 {
+                    transactions.Transac_Type_ID = 3;
+
                     var content = await TransferRepository.EnableTransfer(transactions);
 
                     if (content[0] == 'Y')
