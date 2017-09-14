@@ -16,19 +16,9 @@ namespace BankOfFiji01.Repositories
     {
         public static async Task<List<LoanTypes>> GetLoanTypes()
         {
-            int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
-
-            var ListContent = new List<Account>();
-
-            Account NewQuery = new Account();
-
-            NewQuery.UserID = CustIDHandler;
-            NewQuery.ID = 0;
-
             var client = new HttpClient();
-            var content = JsonConvert.SerializeObject(NewQuery);
-            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("http://localhost:55303/loantype", httpContent);
+
+            var response = await client.GetAsync("http://localhost:55303/loantype");
 
             var jsonString = await response.Content.ReadAsStringAsync();
             var accounts = JsonConvert.DeserializeObject<List<LoanTypes>>(jsonString);
@@ -39,19 +29,9 @@ namespace BankOfFiji01.Repositories
 
         public static async Task<List<AssetTypes>> GetAssets()
         {
-            int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
-
-            var ListContent = new List<Account>();
-
-            Account NewQuery = new Account();
-
-            NewQuery.UserID = CustIDHandler;
-            NewQuery.ID = 0;
-
             var client = new HttpClient();
-            var content = JsonConvert.SerializeObject(NewQuery);
-            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("http://localhost:55303/assettypes", httpContent);
+
+            var response = await client.GetAsync("http://localhost:55303/assettypes");
 
             var jsonString = await response.Content.ReadAsStringAsync();
             var accounts = JsonConvert.DeserializeObject<List<AssetTypes>>(jsonString);

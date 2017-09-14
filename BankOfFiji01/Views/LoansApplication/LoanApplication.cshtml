@@ -18,6 +18,10 @@
     </div>
 }
 
+<div class="callout callout-info">
+    <p><strong>Info:</strong> Minimum loan amount is $1000.00</p>
+</div>
+
 @using (Html.BeginForm("LoanApplication", "LoansApplication", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()

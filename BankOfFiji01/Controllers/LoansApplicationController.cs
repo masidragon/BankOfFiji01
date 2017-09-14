@@ -54,8 +54,8 @@ namespace BankOfFiji01.Controllers
 
                 CreateVM.LoanType.Add(new SelectListItem()
                 {
-                    Text = String.Concat(number.LoanID),
-                    Value = number.LoanDescription
+                    Text = String.Concat(number.LoanDescription),
+                    Value = number.LoanID.ToString()
                 });
             }
 
@@ -68,8 +68,8 @@ namespace BankOfFiji01.Controllers
 
                 CreateVM.Assets.Add(new SelectListItem()
                 {
-                    Text = String.Concat(number.AssetID),
-                    Value = number.AssetDescription
+                    Text = String.Concat(number.AssetDescription),
+                    Value = number.AssetID.ToString()
                 });
                 counter++;
             }
