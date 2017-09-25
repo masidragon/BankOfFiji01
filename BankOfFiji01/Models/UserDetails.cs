@@ -22,5 +22,7 @@ namespace BankOfFiji01.Models
         public string HomeAddress { get; set; }
         public string PostalAddress { get; set; }
         public List<Account> AccountList { get; set; }
+        public List<TransactionHistory> InterestEarned { get; set; }
+        public List<TransactionHistory> MonthlyFees { get; set; }
     }
 }
