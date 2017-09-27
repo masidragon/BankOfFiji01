@@ -237,16 +237,6 @@
     <Content Include="Content\js\plugins\validator\validator.js" />
     <Content Include="Content\js\plugins\validator\validator.min.js" />
     <Content Include="Global.asax" />
-    <Content Include="Models\BOFModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BOFModel.edmx</DependentUpon>
-      <LastGenOutput>BOFModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\BOFModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BOFModel.edmx</DependentUpon>
-      <LastGenOutput>BOFModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -264,99 +254,36 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\AccountApplications.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AccountStatus.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AccountType.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ApplicationStatus.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AssetType.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\AccountApplications.cs" />
+    <Compile Include="Models\AccountStatus.cs" />
+    <Compile Include="Models\AccountType.cs" />
+    <Compile Include="Models\ApplicationStatus.cs" />
+    <Compile Include="Models\AssetType.cs" />
     <Compile Include="Models\AssetTypes.cs" />
-    <Compile Include="Models\Automatic_Payment_State.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AutoPayments.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BankAccount.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BOFModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BOFModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BOFModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BOFModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BOFModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerProfile.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerType.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Automatic_Payment_State.cs" />
+    <Compile Include="Models\AutoPayments.cs" />
+    <Compile Include="Models\BankAccount.cs" />
+    <Compile Include="Models\CustomerProfile.cs" />
+    <Compile Include="Models\CustomerType.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
-    <Compile Include="Models\InterestRates.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\InterestRates.cs" />
     <Compile Include="Models\Intervals.cs" />
     <Compile Include="Models\Loan.cs" />
-    <Compile Include="Models\LoanApplications.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LoanRecords.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LoanStatus.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LoanType.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\LoanApplications.cs" />
+    <Compile Include="Models\LoanRecords.cs" />
+    <Compile Include="Models\LoanStatus.cs" />
+    <Compile Include="Models\LoanType.cs" />
     <Compile Include="Models\LoanTypes.cs" />
     <Compile Include="Models\LoanViewModel.cs" />
-    <Compile Include="Models\Roles.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Scheduler.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TaxRates.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Roles.cs" />
+    <Compile Include="Models\Scheduler.cs" />
+    <Compile Include="Models\TaxRates.cs" />
     <Compile Include="Models\TransactionHistory.cs" />
-    <Compile Include="Models\Transactions.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TransactionType.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Transactions.cs" />
+    <Compile Include="Models\TransactionType.cs" />
     <Compile Include="Models\TransactionViewModel.cs" />
     <Compile Include="Models\Transfer.cs" />
-    <Compile Include="Models\Users.cs">
-      <DependentUpon>BOFModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Repositories\DashboardRepo.cs" />
     <Compile Include="Repositories\ITransferRepository.cs" />
     <Compile Include="Models\TransactionRequest.cs" />
@@ -401,13 +328,6 @@
     <Compile Include="Models\AccountNumbers.cs" />
     <Content Include="Views\Dashboard\Home.cshtml" />
     <Content Include="Views\Transaction\BankStatement.cshtml" />
-    <EntityDeploy Include="Models\BOFModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BOFModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\BOFModel.edmx.diagram">
-      <DependentUpon>BOFModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Views\Transaction\TransferAnotherAccount.cshtml" />
     <Content Include="Views\BillPayments\BillPayment.cshtml" />
     <Content Include="Views\LoansApplication\LoanApplication.cshtml" />

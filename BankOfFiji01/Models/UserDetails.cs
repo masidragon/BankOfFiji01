@@ -11,6 +11,8 @@ namespace BankOfFiji01.Models
         public UserDetails()
         {
             AccountList = new List<Account>();
+            InterestEarned=new List<TransactionHistory>();
+            MonthlyFees=new List<TransactionHistory>();
         }
         public string FirstName { get; set; }
         public int RoleID { get; set; }

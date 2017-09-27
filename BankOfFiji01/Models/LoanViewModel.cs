@@ -15,7 +15,7 @@ namespace BankOfFiji01.Models
             Assets = new List<SelectListItem>();
             LoanType = new List<SelectListItem>();
         }
-        private BankOfFijiEntities db = new BankOfFijiEntities();
+        //private BankOfFijiEntities db = new BankOfFijiEntities();
 
         //int CustID = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
         public int CustID { get; set; }

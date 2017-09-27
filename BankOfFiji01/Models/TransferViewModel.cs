@@ -17,7 +17,7 @@ namespace BankOfFiji01.Models
 
         }
 
-        private BankOfFijiEntities db = new BankOfFijiEntities();
+        //private BankOfFijiEntities db = new BankOfFijiEntities();
 
         int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
 

@@ -15,7 +15,7 @@ namespace BankOfFiji01.Controllers
 {
     public class AccountController : Controller
     {
-        private BankOfFijiEntities db = new BankOfFijiEntities();
+        //private BankOfFijiEntities db = new BankOfFijiEntities();
 
         // GET: Account
         public ActionResult Login()
