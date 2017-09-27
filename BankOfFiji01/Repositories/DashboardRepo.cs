@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -27,6 +28,17 @@ namespace BankOfFiji01.Repositories
             UserDetails responseString = null;
             var jsonString = await response.Content.ReadAsStringAsync();
             responseString = JsonConvert.DeserializeObject<UserDetails>(jsonString);
+            return responseString;
+        }
+
+        public static async Task<DataTable> getpdf()
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("http://localhost:55303/interestpdf");
+
+            DataTable responseString = null;
+            var jsonString = await response.Content.ReadAsStringAsync();
+            responseString = JsonConvert.DeserializeObject<DataTable>(jsonString);
             return responseString;
         }
     }

@@ -4,8 +4,40 @@
     ViewBag.Title = "Dashboard";
     var active = 0;
 }
+<script>
+    $("#pdf").click(function (e) {
+    e.preventDefault();
+    var rootUrl = "~/Report/";
+    $.ajax({
+        //url: $(this).attr("href"),
+        url: '@Url.Action("pdf_Click", "Dashboard")',
+        success: function(){
+        alert("#");
+        }
+    });
+    });
 
+
+
+
+
+    $("#myLink").click(function (e) {
+
+        e.preventDefault();
+        $.ajax({
+
+            url: $(this).attr("href"), // comma here instead of semicolon   
+            success: function () {
+                alert("Value Added");  // or any other indication if you want to show
+            }
+
+        });
+
+    });
+</script>
+@Html.ActionLink("Download demo PDF", "pdf_Click", null, new { id = "myLink" }, new { @class="btn btn-success btn-block"})
 <h2>Dashboard</h2>
+
 
 <section>
     <div class="row" width="100">
