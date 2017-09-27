@@ -12,7 +12,7 @@ namespace BankOfFiji01.Controllers
 {
     public class HomeController : Controller
     {
-        private BankOfFijiEntities db = new BankOfFijiEntities();
+        //private BankOfFijiEntities db = new BankOfFijiEntities();
 
         public ActionResult Index()
         {

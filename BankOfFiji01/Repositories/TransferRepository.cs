@@ -11,12 +11,12 @@ namespace BankOfFiji01.Models
 {
     public class TransferRepository
     {
-        private BankOfFijiEntities db;
+        //private BankOfFijiEntities db;
 
-        public TransferRepository()
-        {
-            db = new BankOfFijiEntities();
-        }
+        //public TransferRepository()
+        //{
+        //    db = new BankOfFijiEntities();
+        //}
 
         public static async Task<int> CheckBankAccountCount(int info)
         {
@@ -55,23 +55,23 @@ namespace BankOfFiji01.Models
             return accounts;
         }
 
-        public IList<BankAccount> MyAccounts()
-        {
-            int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
+        //public IList<BankAccount> MyAccounts()
+        //{
+        //    int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
 
-            var content = new List<BankAccount>();
+        //    var content = new List<BankAccount>();
 
-            var Acc = from item in db.BankAccount
-                      where item.Users.userId == CustIDHandler
-                      select item;
+        //    var Acc = from item in db.BankAccount
+        //              where item.Users.userId == CustIDHandler
+        //              select item;
 
-            foreach (var item in Acc)
-            {
-                content.Add(item);
-            }
+        //    foreach (var item in Acc)
+        //    {
+        //        content.Add(item);
+        //    }
 
-            return content;
-        }
+        //    return content;
+        //}
 
         public static async Task<List<Account>> GetOtherAccounts(int info)
         {

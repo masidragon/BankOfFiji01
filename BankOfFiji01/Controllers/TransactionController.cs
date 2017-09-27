@@ -14,7 +14,7 @@ namespace BankOfFiji01.Controllers
 {
     public class TransactionController : Controller
     {
-        private BankOfFijiEntities db = new BankOfFijiEntities();
+        //private BankOfFijiEntities db = new BankOfFijiEntities();
 
         //private ITransferRepository _repository;
 
@@ -31,26 +31,26 @@ namespace BankOfFiji01.Controllers
         private System.Object lockThis = new System.Object();
 
         // GET: Transactions
-        public ActionResult Index()
-        {
-            var transactions = db.Transactions.Include(t => t.BankAccount).Include(t => t.TransactionType);
-            return View(transactions.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    var transactions = db.Transactions.Include(t => t.BankAccount).Include(t => t.TransactionType);
+        //    return View(transactions.ToList());
+        //}
 
         // GET: Transactions/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Transactions transactions = db.Transactions.Find(id);
-            if (transactions == null)
-            {
-                return HttpNotFound();
-            }
-            return View(transactions);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Transactions transactions = db.Transactions.Find(id);
+        //    if (transactions == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(transactions);
+        //}
 
         public ActionResult TransferInvalid()
         {
@@ -706,38 +706,38 @@ namespace BankOfFiji01.Controllers
         }
 
         // GET: Transactions/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Transactions transactions = db.Transactions.Find(id);
-            if (transactions == null)
-            {
-                return HttpNotFound();
-            }
-            return View(transactions);
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Transactions transactions = db.Transactions.Find(id);
+        //    if (transactions == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(transactions);
+        //}
 
-        // POST: Transactions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Transactions transactions = db.Transactions.Find(id);
-            db.Transactions.Remove(transactions);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Transactions/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Transactions transactions = db.Transactions.Find(id);
+        //    db.Transactions.Remove(transactions);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

@@ -46,314 +46,317 @@
 </section>
 
 
-<section>
-    <div class="row" width="100">
-        <div class="col-xs-12" width="100">
-            <div class="box box-info" width="100">
-                <div class="box-header">
-                    <h3 class="box-title">User Accounts</h3>
-                </div>
-                <div class="box-body table-responsive no-padding">
-                    <table class="table">
-                        <tr>
-                            <th>
-                                Account Number
-                            </th>
-                            <th>
-                                Owned By
-                            </th>
-                            <th>
-                                Account Type
-                            </th>
-                            <th>
-                                Account Status
-                            </th>
-                            <th>
-                                Account Balance
-                            </th>
-                            <th>
-                                Total Interest
-                            </th>
-                        </tr>
 
-                        @foreach (var item in Model.AccountList)
-                        {
+    <section>
+        <div class="row" width="100">
+            <div class="col-xs-12" width="100">
+                <div class="box box-info" width="100">
+                    <div class="box-header">
+                        <h3 class="box-title">User Accounts</h3>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table">
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ID)
-                                </td>
-                                <td>
-                                    @String.Concat(Model.FirstName + " " + Model.LastName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Type)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AccountStatus)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AccountBalance)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TotalInterest)
-                                </td>
+                                <th>
+                                    Account Number
+                                </th>
+                                <th>
+                                    Owned By
+                                </th>
+                                <th>
+                                    Account Type
+                                </th>
+                                <th>
+                                    Account Status
+                                </th>
+                                <th>
+                                    Account Balance
+                                </th>
+                                <th>
+                                    Total Interest
+                                </th>
                             </tr>
-                        }
-                    </table>
 
+                            @foreach (var item in Model.AccountList)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ID)
+                                    </td>
+                                    <td>
+                                        @String.Concat(Model.FirstName + " " + Model.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AccountStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AccountBalance)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalInterest)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="col-xs-6">
-    <h3>Interest Received</h3>
-    <div width="100">
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-                @foreach (var account in Model.AccountList)
+<section class="box-body">
+    <section class="col-xs-6">
+        <h3>Interest Received</h3>
+        <div width="100">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @foreach (var account in Model.AccountList)
             {
                 if (active == 0)
                 {
-                        <li class="active"><a href="#interest_@account.ID" data-toggle="tab" aria-expanded="true">@account.Type</a></li>
+                            <li class="active"><a href="#interest_@account.ID" data-toggle="tab" aria-expanded="true">@account.Type</a></li>
+                            active++;
+                        }
+                        else
+                        {
+                            <li class=""><a href="#interest_@account.ID" data-toggle="tab" aria-expanded="false">@account.Type</a></li>
+                        }
+
+                    }
+                </ul>
+
+                @{
+                    active = 0;
+                }
+
+                <div class="tab-content">
+                    @foreach (var account in Model.AccountList)
+                    {
+                        if (active == 0)
+                        {
+                            <div class="tab-pane active" id="interest_@account.ID">
+                                <div class="table">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Particulars
+                                            </th>
+                                            <th>
+                                                Amount
+                                            </th>
+                                            <th>
+                                                Adjustment
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model.InterestEarned)
+                                        {
+                                            if (item.AccountRequested == account.ID)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Date)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Particulars)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Amount)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Adjustment)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="tab-pane" id="interest_@account.ID">
+                                <div class="table">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Particulars
+                                            </th>
+                                            <th>
+                                                Amount
+                                            </th>
+                                            <th>
+                                                Adjustment
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model.InterestEarned)
+                                        {
+                                            if (item.AccountRequested == account.ID)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Date)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Particulars)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Amount)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Adjustment)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        }
                         active++;
                     }
-                    else
-                    {
-                        <li class=""><a href="#interest_@account.ID" data-toggle="tab" aria-expanded="false">@account.Type</a></li>
-                    }
-
-                }
-            </ul>
-
-            @{
-                active = 0;
-            }
-
-            <div class="tab-content">
-                @foreach (var account in Model.AccountList)
-                {
-                    if (active == 0)
-                    {
-                        <div class="tab-pane active" id="interest_@account.ID">
-                            <div class="table">
-                                <table class="table">
-                                    <tr>
-                                        <th>
-                                            Date
-                                        </th>
-                                        <th>
-                                            Particulars
-                                        </th>
-                                        <th>
-                                            Amount
-                                        </th>
-                                        <th>
-                                            Adjustment
-                                        </th>
-                                    </tr>
-
-                                    @foreach (var item in Model.InterestEarned)
-                                    {
-                                        if (item.AccountRequested == account.ID)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Date)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Particulars)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Amount)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Adjustment)
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                </table>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="tab-pane" id="interest_@account.ID">
-                            <div class="table">
-                                <table class="table">
-                                    <tr>
-                                        <th>
-                                            Date
-                                        </th>
-                                        <th>
-                                            Particulars
-                                        </th>
-                                        <th>
-                                            Amount
-                                        </th>
-                                        <th>
-                                            Adjustment
-                                        </th>
-                                    </tr>
-
-                                    @foreach (var item in Model.InterestEarned)
-                                    {
-                                        if (item.AccountRequested == account.ID)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Date)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Particulars)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Amount)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Adjustment)
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                </table>
-                            </div>
-                        </div>
-                    }
-                    active++;
-                }
-                <!-- /.tab-pane -->
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
             </div>
-            <!-- /.tab-content -->
         </div>
-    </div>
-</section>
+    </section>
 
 
-@{ active = 0; }
+    @{ active = 0; }
 
-<section class="col-xs-6">
-    <h3>Monthly Fees</h3>
-    <div width="100">
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-            @foreach (var account in Model.AccountList)
+    <section class="col-xs-6">
+        <h3>Monthly Fees</h3>
+        <div width="100">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @foreach (var account in Model.AccountList)
             {
                 if (active == 0)
                 {
-                        <li class="active"><a href="#monthly_@account.ID" data-toggle="tab" aria-expanded="true">@account.Type</a></li>
+                            <li class="active"><a href="#monthly_@account.ID" data-toggle="tab" aria-expanded="true">@account.Type</a></li>
+                            active++;
+                        }
+                        else
+                        {
+                            <li class=""><a href="#monthly_@account.ID" data-toggle="tab" aria-expanded="false">@account.Type</a></li>
+                        }
+
+                    }
+                </ul>
+
+                @{
+                    active = 0;
+                }
+
+                <div class="tab-content">
+                    @foreach (var account in Model.AccountList)
+            {
+                if (active == 0)
+                {
+                            <div class="tab-pane active" id="monthly_@account.ID">
+                                <div class="table">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Particulars
+                                            </th>
+                                            <th>
+                                                Amount
+                                            </th>
+                                            <th>
+                                                Adjustment
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model.MonthlyFees)
+                                        {
+                                            if (item.AccountRequested == account.ID)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Date)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Particulars)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Amount)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Adjustment)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="tab-pane" id="monthly_@account.ID">
+                                <div class="table">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Particulars
+                                            </th>
+                                            <th>
+                                                Amount
+                                            </th>
+                                            <th>
+                                                Adjustment
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model.MonthlyFees)
+                                        {
+                                            if (item.AccountRequested == account.ID)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Date)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Particulars)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Amount)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Adjustment)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        }
                         active++;
                     }
-                    else
-                    {
-                        <li class=""><a href="#monthly_@account.ID" data-toggle="tab" aria-expanded="false">@account.Type</a></li>
-                    }
-
-                }
-            </ul>
-
-            @{
-                active = 0;
-            }
-
-            <div class="tab-content">
-            @foreach (var account in Model.AccountList)
-            {
-                if (active == 0)
-                {
-                        <div class="tab-pane active" id="monthly_@account.ID">
-                            <div class="table">
-                                <table class="table">
-                                    <tr>
-                                        <th>
-                                            Date
-                                        </th>
-                                        <th>
-                                            Particulars
-                                        </th>
-                                        <th>
-                                            Amount
-                                        </th>
-                                        <th>
-                                            Adjustment
-                                        </th>
-                                    </tr>
-
-                                    @foreach (var item in Model.MonthlyFees)
-                                    {
-                                        if (item.AccountRequested == account.ID)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Date)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Particulars)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Amount)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Adjustment)
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                </table>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="tab-pane" id="monthly_@account.ID">
-                            <div class="table">
-                                <table class="table">
-                                    <tr>
-                                        <th>
-                                            Date
-                                        </th>
-                                        <th>
-                                            Particulars
-                                        </th>
-                                        <th>
-                                            Amount
-                                        </th>
-                                        <th>
-                                            Adjustment
-                                        </th>
-                                    </tr>
-
-                                    @foreach (var item in Model.MonthlyFees)
-                                    {
-                                        if (item.AccountRequested == account.ID)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Date)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Particulars)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Amount)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Adjustment)
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                </table>
-                            </div>
-                        </div>
-                    }
-                    active++;
-                }
-                <!-- /.tab-pane -->
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
             </div>
-            <!-- /.tab-content -->
         </div>
-    </div>
+    </section>
 </section>
