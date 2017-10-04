@@ -52,5 +52,29 @@ namespace BankOfFiji01.Repositories
             responseString = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
             return responseString;
         }
+
+        public static async Task<Notification> GetSingleNotifications(int info)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("http://localhost:55303/getsinglenotifications?info=" + info);
+
+            Notification responseString = null;
+            var jsonString = await response.Content.ReadAsStringAsync();
+            responseString = JsonConvert.DeserializeObject <Notification> (jsonString);
+            return responseString;
+        }
+
+        public static async Task<string> SetSingleNotifications(Notification info)
+        {
+            var client = new HttpClient();
+            var content = JsonConvert.SerializeObject(info);
+            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("http://localhost:55303/setsinglenotifications", httpContent);
+
+            string responseString = null;
+            var jsonString = await response.Content.ReadAsStringAsync();
+            responseString = JsonConvert.DeserializeObject<string>(jsonString);
+            return responseString;
+        }
     }
 }

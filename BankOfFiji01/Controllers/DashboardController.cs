@@ -40,52 +40,35 @@ namespace BankOfFiji01.Controllers
             
             var Notifications = await DashboardRepo.GetNotifications();
 
-            foreach (var result in Notifications)
+            return View(Notifications);
+        }
+
+        public async Task<ActionResult> EditNotification(int id)
+        {
+            Notification notification = await DashboardRepo.GetSingleNotifications(id);
+
+            if (notification == null)
             {
-                NotificationsViewModel newentry = new NotificationsViewModel();
-                newentry.NotificationID = result.NotificationID;
-                newentry.NotificationType = result.NotificationType;
-
-                if(result.NotificationStatus == "Deny")
-                {
-                    newentry.NotificationStatus.Add(new SelectListItem()
-                    {
-                        Text = "Deny",
-                        Value = "Deny"
-                    });
-                    newentry.NotificationStatus.Add(new SelectListItem()
-                    {
-                        Text = "Allow",
-                        Value = "Allow"
-                    });
-                }
-                else
-                {
-                    newentry.NotificationStatus.Add(new SelectListItem()
-                    {
-                        Text = "Allow",
-                        Value = "Allow"
-                    });
-                    newentry.NotificationStatus.Add(new SelectListItem()
-                    {
-                        Text = "Deny",
-                        Value = "Deny"
-                    });
-                }
-
-
-                CreateVM.Add(newentry);
+                return HttpNotFound();
             }
 
-            return View(CreateVM);
+            return View(notification);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Notifications(NotificationsViewModel entry)
+        public async Task<ActionResult> EditNotification(Notification entry)
         {
+            var content = await DashboardRepo.SetSingleNotifications(entry);
 
-            return View();
+            if (content[0] == 'Y')
+            {
+                TempData["Success"] = content;
+                return RedirectToAction("Notifications");
+            }
+
+            TempData["Error"] = content;
+            return RedirectToAction("Notifications");
         }
     }
 }

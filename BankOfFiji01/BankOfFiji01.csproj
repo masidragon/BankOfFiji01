@@ -342,6 +342,7 @@
     <Content Include="Views\Dashboard\Admin.cshtml" />
     <Content Include="Views\Transaction\NetIncome.cshtml" />
     <Content Include="Views\Dashboard\Notifications.cshtml" />
+    <Content Include="Views\Dashboard\EditNotification.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
