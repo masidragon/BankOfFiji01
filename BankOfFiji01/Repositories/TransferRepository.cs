@@ -55,24 +55,6 @@ namespace BankOfFiji01.Models
             return accounts;
         }
 
-        //public IList<BankAccount> MyAccounts()
-        //{
-        //    int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
-
-        //    var content = new List<BankAccount>();
-
-        //    var Acc = from item in db.BankAccount
-        //              where item.Users.userId == CustIDHandler
-        //              select item;
-
-        //    foreach (var item in Acc)
-        //    {
-        //        content.Add(item);
-        //    }
-
-        //    return content;
-        //}
-
         public static async Task<List<Account>> GetOtherAccounts(int info)
         {
             int CustIDHandler = Convert.ToInt32(HttpContext.Current.Session["CustID"]);
@@ -95,7 +77,7 @@ namespace BankOfFiji01.Models
             return accounts;
         }
 
-        public static async Task<string> EnableTransfer(TransferViewModel info)
+        public static async Task<Transfer> EnableTransfer(TransferViewModel info)
         {
             Transfer NewQuery = new Transfer();
 
@@ -112,11 +94,33 @@ namespace BankOfFiji01.Models
             var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
             var response = await client.PostAsync("http://localhost:55303/transfertoacc", httpContent);
 
-            var responseString = await response.Content.ReadAsStringAsync();
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var accounts = JsonConvert.DeserializeObject<Transfer>(jsonString);
 
-            string Trim = responseString.Trim('"');
+            return accounts;
+        }
 
-            return Trim;
+        public static async Task<Transfer> EnableBillPayment(TransferViewModel info)
+        {
+            Transfer NewQuery = new Transfer();
+
+            NewQuery.Acc_ID = info.Acc_ID;
+            NewQuery.Transac_Type_ID = info.Transac_Type_ID;
+            NewQuery.TransferAcc_ID = info.TransferAcc_ID;
+            NewQuery.Trans_Amount = info.Trans_Amount;
+            NewQuery.StartDate = info.startDate;
+            NewQuery.EndDate = info.endDate;
+            NewQuery.Interval = info.Period;
+
+            var client = new HttpClient();
+            var content = JsonConvert.SerializeObject(NewQuery);
+            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("http://localhost:55303/billpaymentfromacc", httpContent);
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var accounts = JsonConvert.DeserializeObject<Transfer>(jsonString);
+
+            return accounts;
         }
     }
 }

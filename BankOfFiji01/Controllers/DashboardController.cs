@@ -1,6 +1,9 @@
-﻿using BankOfFiji01.Repositories;
+﻿using BankOfFiji01.Models;
+using BankOfFiji01.Repositories;
 using iTextSharp.text;
+using iTextSharp.text.html;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,53 +26,64 @@ namespace BankOfFiji01.Controllers
             return View(UserDetail);
         }
 
-        public async Task<ActionResult> pdf_Click(object sender, EventArgs e)
+        public async Task<ActionResult> Admin()
         {
-            var newpdf = await DashboardRepo.getpdf();
+            int CustIDHandler = Convert.ToInt32(Session["CustID"]);
+            var UserDetail = await DashboardRepo.FindUserDetails(CustIDHandler);
 
-            MemoryStream memoryStream = new System.IO.MemoryStream();
-            Document document = new Document();
+            return View(UserDetail);
+        }
 
-            PdfPTable table = new PdfPTable(newpdf.Columns.Count);
-            PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
-
-            document.Open();
-
-            BaseFont btnColumnHeader = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-            Font fntColumnHeader = new Font(btnColumnHeader, 10, 1);
-            for (int i = 0; i < newpdf.Columns.Count; i++)
-            {
-                PdfPCell cell = new PdfPCell();
-                cell.AddElement(new Chunk(newpdf.Columns[i].ColumnName.ToUpper(), fntColumnHeader));
-                table.AddCell(cell);
-            }
-            //table Data
-            for (int i = 0; i < newpdf.Rows.Count; i++)
-            {
-                for (int j = 0; j < newpdf.Columns.Count; j++)
-                {
-                    table.AddCell(newpdf.Rows[i][j].ToString());
-                }
-            }
-
-            string filename = DateTime.Now.Date.ToShortDateString();
-
-            document.Add(table);
-            document.Close();
-
-            byte[] bytes = memoryStream.ToArray();
-            memoryStream.Close();
-
-            Response.Clear();
-            Response.ContentType = "application/pdf";
+        public async Task<ActionResult> Notifications()
+        {
+            List<NotificationsViewModel> CreateVM = new List<NotificationsViewModel>();
             
-            Response.AddHeader("Content-Disposition", "attachment; filename=BankOfFiji_NetIncome_"+filename+".pdf");
-            Response.ContentType = "application/pdf";
-            Response.Buffer = true;
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.BinaryWrite(bytes);
-            Response.End();
-            Response.Close();
+            var Notifications = await DashboardRepo.GetNotifications();
+
+            foreach (var result in Notifications)
+            {
+                NotificationsViewModel newentry = new NotificationsViewModel();
+                newentry.NotificationID = result.NotificationID;
+                newentry.NotificationType = result.NotificationType;
+
+                if(result.NotificationStatus == "Deny")
+                {
+                    newentry.NotificationStatus.Add(new SelectListItem()
+                    {
+                        Text = "Deny",
+                        Value = "Deny"
+                    });
+                    newentry.NotificationStatus.Add(new SelectListItem()
+                    {
+                        Text = "Allow",
+                        Value = "Allow"
+                    });
+                }
+                else
+                {
+                    newentry.NotificationStatus.Add(new SelectListItem()
+                    {
+                        Text = "Allow",
+                        Value = "Allow"
+                    });
+                    newentry.NotificationStatus.Add(new SelectListItem()
+                    {
+                        Text = "Deny",
+                        Value = "Deny"
+                    });
+                }
+
+
+                CreateVM.Add(newentry);
+            }
+
+            return View(CreateVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Notifications(NotificationsViewModel entry)
+        {
 
             return View();
         }

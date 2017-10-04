@@ -114,15 +114,15 @@ namespace BankOfFiji01.Controllers
                 transactions.Transac_Type_ID = 3;
                 try
                 {
-                    var content = await TransferRepository.EnableTransfer(transactions);
+                    var content = await TransferRepository.EnableBillPayment(transactions);
 
-                    if (content[0] == 'Y')
+                    if (content.TransferStatus[0] == 'Y')
                     {
-                        TempData["Success"] = content;
+                        TempData["Success"] = content.TransferStatus;
                         return RedirectToAction("BillPayment");
                     }
 
-                    TempData["Error"] = content;
+                    TempData["Error"] = content.TransferStatus;
                     return RedirectToAction("BillPayment");
                 }
                 catch
@@ -254,13 +254,13 @@ namespace BankOfFiji01.Controllers
                 {
                     var content = await TransferRepository.EnableTransfer(transactions);
 
-                    if (content[0] == 'Y')
+                    if (content.TransferStatus[0] == 'Y')
                     {
-                        TempData["Success"] = content;
+                        TempData["Success"] = content.TransferStatus;
                         return RedirectToAction("AutoBillPayment");
                     }
 
-                    TempData["Error"] = content;
+                    TempData["Error"] = content.TransferStatus;
                     return RedirectToAction("AutoBillPayment");
                 }
                 catch

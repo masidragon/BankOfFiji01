@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,7 +18,7 @@ namespace BankOfFiji01.Models
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public int AccountID { get; set; }
-
+        public DataTable NetIncome { get; set; }
         public List<TransactionHistory> StatementDetails { get; set; }
 
         public string Date { get; set; }

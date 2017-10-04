@@ -42,6 +42,12 @@ namespace BankOfFiji01.Controllers
                 Session["CustID"] = UserDetail.CustomerID;
                 Session["Role"] = UserDetail.RoleID;
                 Session["Username"] = info.Username;
+
+                if(UserDetail.RoleID == 1002)
+                {
+                    return RedirectToAction("Admin", "Dashboard");
+                }
+
                 return RedirectToAction("Home", "Dashboard");
             }
             catch

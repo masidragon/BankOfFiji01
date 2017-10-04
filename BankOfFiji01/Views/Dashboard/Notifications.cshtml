@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BankOfFiji01.Models.NotificationsViewModel>
+
+@{
+    ViewBag.Title = "Notifications";
+}
+
+<h2>Notifications</h2>
+
+<script type="text/javascript">
+                    function TestAjax() {
+                        var Test = [];
+
+                        for (var i = 0; i < 5; i++) {
+                            Test.push({ NotificationID: i, NotificationType: "RJ", NotificationType: "RJ" });
+                        }
+
+                        $.ajax({
+                            type: 'POST',
+                            url: "/Dashboard/SetNotification",
+                            contentType: "application/json",
+                            //data: { Test: JSON.stringify( data) },
+                            data: JSON.stringify({ Test: Test }),
+                            success: function (data) {
+                                alert("Succeded");
+                            }
+                        });
+                    }
+</script>
+
+
+@using (Html.BeginForm("Notifications", "Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @foreach (var item in Model)
+        {
+            <div class="form-group">
+                <label class="control-label col-md-2">Statement for this account: </label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => item.NotificationID, item.NotificationStatus, new { style = "width: 200px;", id = "Status" })
+                    @Html.ValidationMessageFor(model => item.NotificationStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" id="Notifications" name="Notifications" value="Change Settings" class="btn btn-success btn-block">
+            </div>
+        </div>
+
+    </div>
+}

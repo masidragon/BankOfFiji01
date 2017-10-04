@@ -188,8 +188,10 @@
     <Content Include="Content\css\skins\skin-yellow.min.css" />
     <Content Include="Content\css\skins\_all-skins.css" />
     <Content Include="Content\css\skins\_all-skins.min.css" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\1.jpg" />
     <Content Include="Content\img\icheck\aero%402x.png" />
     <Content Include="Content\img\icheck\aero.png" />
     <Content Include="Content\img\icheck\blue%402x.png" />
@@ -210,6 +212,7 @@
     <Content Include="Content\img\icheck\red.png" />
     <Content Include="Content\img\icheck\yellow%402x.png" />
     <Content Include="Content\img\icheck\yellow.png" />
+    <Content Include="Content\img\logo.JPG" />
     <Content Include="Content\img\user.jpg" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\app.min.js" />
@@ -275,6 +278,8 @@
     <Compile Include="Models\LoanType.cs" />
     <Compile Include="Models\LoanTypes.cs" />
     <Compile Include="Models\LoanViewModel.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationsViewModel.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Scheduler.cs" />
     <Compile Include="Models\TaxRates.cs" />
@@ -334,6 +339,9 @@
     <Content Include="Views\BillPayments\AutoBillPayment.cshtml" />
     <Content Include="Views\Transaction\AutoTransfer.cshtml" />
     <Content Include="Views\Transaction\AutoTransferAnotherAccount.cshtml" />
+    <Content Include="Views\Dashboard\Admin.cshtml" />
+    <Content Include="Views\Transaction\NetIncome.cshtml" />
+    <Content Include="Views\Dashboard\Notifications.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
