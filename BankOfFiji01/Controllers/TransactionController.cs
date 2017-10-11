@@ -209,8 +209,6 @@ namespace BankOfFiji01.Controllers
             return View(CreateVM);
         }
 
-
-
         [HttpPost]
         public async Task<ActionResult> NetIncome(TransactionViewModel transactions)
         {
@@ -533,9 +531,6 @@ namespace BankOfFiji01.Controllers
             return View(CreateVM);
         }
 
-        // POST: Transactions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Transfer(TransferViewModel transactions)
@@ -635,8 +630,6 @@ namespace BankOfFiji01.Controllers
             }
         }
 
-
-
         public async Task<ActionResult> AutoTransfer()
         {
             int info = Convert.ToInt32(Session["CustID"]);
@@ -694,7 +687,6 @@ namespace BankOfFiji01.Controllers
 
             return View(CreateVM);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -1046,5 +1038,117 @@ namespace BankOfFiji01.Controllers
             return View(transactions);
         }
 
+        public async Task<ActionResult> IntTransfer()
+        {
+            int info = Convert.ToInt32(Session["CustID"]);
+
+            var AccountNumbers = await TransferRepository.CheckBankAccountNumbers(info);
+
+            TransferViewModel CreateVM = new TransferViewModel();
+
+            int counter = 0;
+            int first = 0;
+
+            foreach (var number in AccountNumbers)
+            {
+                if (counter == 0)
+                {
+                    first = number.ID;
+                }
+
+                CreateVM.MyAccountsSelectListItem.Add(new SelectListItem()
+                {
+                    Text = String.Concat(number.ID, " - ", number.Type),
+                    Value = number.ID.ToString()
+                });
+                counter++;
+            }
+
+            foreach (var number in AccountNumbers)
+            {
+                if (number.ID != first)
+                {
+                    CreateVM.MyOtherAccounts.Add(new SelectListItem()
+                    {
+                        Text = String.Concat(number.ID, " - ", number.Type),
+                        Value = number.ID.ToString()
+                    });
+                }
+            }
+
+            return View(CreateVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> IntTransfer(TransferViewModel transactions)
+        {
+            if (ModelState.IsValid)
+            {
+                lock (lockThis)
+                {
+                    DateTime DateHandler = DateTime.Now;
+
+                    //Check if seelcted second account
+                    if (transactions.TransferAcc_ID == 0)
+                    {
+                        TempData["Error"] = "You did not select an account to transfer to!";
+                        return RedirectToAction("Transfer");
+                    }
+
+                    // Check if minimum transfer amount met
+                    if (transactions.Trans_Amount < 10)
+                    {
+                        TempData["Error"] = "You did not meet the minimum transfer amount!";
+                        return RedirectToAction("Transfer");
+                    }
+
+                    //Check if 2 decimal places
+                    decimal argument = transactions.Trans_Amount;
+                    int count = BitConverter.GetBytes(decimal.GetBits(argument)[3])[2];
+
+                    if (count != 2)
+                    {
+                        TempData["Error"] = "Please enter 2 digits after the decimal place!";
+                        return RedirectToAction("Transfer");
+                    }
+
+                    Transactions NewTransfer = new Transactions();
+
+                }
+
+                // ID for Transfers
+                transactions.Transac_Type_ID = 17;
+                try
+                {
+                    var content = await TransferRepository.EnableIntTransfer(transactions);
+
+                    if (content.TransferStatus[0] == 'Y')
+                    {
+                        TempData["Success"] = content.TransferStatus;
+                        return RedirectToAction("Transfer");
+                    }
+
+                    TempData["Error"] = content.TransferStatus;
+                    return RedirectToAction("Transfer");
+                }
+                catch
+                {
+                    TempData["Error"] = "An error seems to have occured to the return of information from the DB";
+                    return RedirectToAction("Transfer");
+                }
+
+            }
+            return View(transactions);
+        }
+
+        public async Task<ActionResult> IntTransferStates()
+        {
+            int info = Convert.ToInt32(Session["CustID"]);
+
+            var International = await TransferRepository.CheckIntTransferStates(info);
+
+            return View(International);
+        }
     }
 }

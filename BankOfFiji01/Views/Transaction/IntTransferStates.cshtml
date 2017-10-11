@@ -1,0 +1,20 @@
+﻿@model IEnumerable<BankOfFiji01.Models.IntTransferStatesViewModel>
+
+@{
+    ViewBag.Title = "IntTransferStates";
+}
+
+<h2>IntTransferStates</h2>
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.State</td>
+        </tr>
+    }
+</table>
+
+<script type=”text/javascript”>
+    setInterval(“$(‘#_recentfive’).load(‘Transaction/IntTransferStatesResults’)”,2000);
+</script> 

@@ -272,6 +272,7 @@
     <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\InterestRates.cs" />
     <Compile Include="Models\Intervals.cs" />
+    <Compile Include="Models\IntTransferStatesViewModel.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\LoanApplications.cs" />
     <Compile Include="Models\LoanRecords.cs" />
@@ -344,6 +345,9 @@
     <Content Include="Views\Transaction\NetIncome.cshtml" />
     <Content Include="Views\Dashboard\Notifications.cshtml" />
     <Content Include="Views\Dashboard\EditNotification.cshtml" />
+    <Content Include="Views\Transaction\IntTransfer.cshtml" />
+    <Content Include="Views\Transaction\IntTransferStatesResults.cshtml" />
+    <Content Include="Views\Transaction\IntTransferStates.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
