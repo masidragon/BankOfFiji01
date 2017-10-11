@@ -111,7 +111,7 @@ namespace BankOfFiji01.Controllers
                 }
 
                 // ID for Transfers
-                transactions.Transac_Type_ID = 3;
+                transactions.Transac_Type_ID = 4;
                 try
                 {
                     var content = await TransferRepository.EnableBillPayment(transactions);

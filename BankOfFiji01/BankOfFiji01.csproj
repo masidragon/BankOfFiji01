@@ -192,6 +192,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\1.jpg" />
+    <Content Include="Content\img\2.gif" />
     <Content Include="Content\img\icheck\aero%402x.png" />
     <Content Include="Content\img\icheck\aero.png" />
     <Content Include="Content\img\icheck\blue%402x.png" />

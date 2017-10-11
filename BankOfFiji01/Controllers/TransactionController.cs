@@ -23,6 +23,185 @@ namespace BankOfFiji01.Controllers
             return View();
         }
 
+        public async Task<ActionResult> FIRCA()
+        {
+            var newpdf = await TransactiontRepository.GetFIRCA();
+
+            MemoryStream memoryStream = new System.IO.MemoryStream();
+            Document document = new Document();
+
+            PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+            document.Open();
+
+            var titleFont = FontFactory.GetFont("Arial", 13, Font.BOLD);
+            var titleFontBlue = FontFactory.GetFont("Arial", 15, Font.NORMAL, BaseColor.BLUE);
+            var boldTableFont = FontFactory.GetFont("Arial", 10, Font.BOLD);
+            var bodyFont = FontFactory.GetFont("Arial", 10, Font.NORMAL);
+            var EmailFont = FontFactory.GetFont("Arial", 10, Font.NORMAL, BaseColor.BLUE);
+            BaseColor TabelHeaderBackGroundColor = WebColors.GetRGBColor("#EEEEEE");
+
+            PdfPTable headertable = new PdfPTable(3);
+            headertable.HorizontalAlignment = 0;
+            headertable.WidthPercentage = 100;
+            headertable.SetWidths(new float[] { 150f, 220f, 150f });  // then set the column's __relative__ widths
+            headertable.DefaultCell.Border = Rectangle.NO_BORDER;
+
+            string imagePath = Server.MapPath("~/Content/img/logo.jpg");
+            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imagePath);
+            logo.Alignment = Element.ALIGN_CENTER;
+
+            string aimagePath = Server.MapPath("~/Content/img/2.gif");
+            iTextSharp.text.Image alogo = iTextSharp.text.Image.GetInstance(aimagePath);
+            alogo.Alignment = Element.ALIGN_CENTER;
+
+            // set width and height
+            logo.ScaleToFit(180f, 300f);
+            {
+                PdfPCell pdfCelllogo = new PdfPCell(logo);
+                pdfCelllogo.Border = Rectangle.NO_BORDER;
+                pdfCelllogo.BorderColorBottom = new BaseColor(System.Drawing.Color.Black);
+                pdfCelllogo.BorderWidthBottom = 2f;
+                headertable.AddCell(pdfCelllogo);
+            }
+
+            {
+                PdfPCell middlecell = new PdfPCell();
+                middlecell.Border = Rectangle.NO_BORDER;
+                middlecell.BorderColorBottom = new BaseColor(System.Drawing.Color.Black);
+                middlecell.BorderWidthBottom = 2f;
+                headertable.AddCell(middlecell);
+            }
+
+            {
+                PdfPTable nested = new PdfPTable(1);
+                nested.DefaultCell.Border = Rectangle.NO_BORDER;
+                PdfPCell nextPostCell1 = new PdfPCell(new Phrase("Bank of Fiji", titleFont));
+                nextPostCell1.Border = Rectangle.NO_BORDER;
+                nested.AddCell(nextPostCell1);
+                PdfPCell nextPostCell2 = new PdfPCell(new Phrase("76 Prince Roads, BOF Building, Suva, Fiji", bodyFont));
+                nextPostCell2.Border = Rectangle.NO_BORDER;
+                nested.AddCell(nextPostCell2);
+                PdfPCell nextPostCell3 = new PdfPCell(new Phrase("(+679) 9992358", bodyFont));
+                nextPostCell3.Border = Rectangle.NO_BORDER;
+                nested.AddCell(nextPostCell3);
+                PdfPCell nextPostCell4 = new PdfPCell(new Phrase("customercare@bof.com.fj", EmailFont));
+                nextPostCell4.Border = Rectangle.NO_BORDER;
+                nested.AddCell(nextPostCell4);
+                nested.AddCell("");
+                PdfPCell nesthousing = new PdfPCell(nested);
+                nesthousing.Border = Rectangle.NO_BORDER;
+                nesthousing.BorderColorBottom = new BaseColor(System.Drawing.Color.Black);
+                nesthousing.BorderWidthBottom = 2f;
+                nesthousing.Rowspan = 5;
+                nesthousing.PaddingBottom = 10f;
+                headertable.AddCell(nesthousing);
+            }
+
+            PdfPTable StatmentHeadertable = new PdfPTable(1);
+            StatmentHeadertable.HorizontalAlignment = 0;
+            StatmentHeadertable.WidthPercentage = 100;
+            StatmentHeadertable.SetWidths(new float[] { 320f });  // then set the column's __relative__ widths
+            StatmentHeadertable.DefaultCell.Border = Rectangle.NO_BORDER;
+
+            {
+                PdfPTable nested = new PdfPTable(1);
+                nested.DefaultCell.Border = Rectangle.NO_BORDER;
+                PdfPCell nextPostCell1 = new PdfPCell(new Phrase("FIRCA STATEMENT", titleFontBlue));
+                nextPostCell1.Border = Rectangle.NO_BORDER;
+                nested.AddCell(nextPostCell1);
+
+                nested.AddCell("");
+                PdfPCell nesthousing = new PdfPCell(nested);
+                nesthousing.Border = Rectangle.NO_BORDER;
+
+                nesthousing.Rowspan = 5;
+                nesthousing.PaddingBottom = 10f;
+                StatmentHeadertable.AddCell(nesthousing);
+            }
+
+            document.Add(headertable);
+            StatmentHeadertable.PaddingTop = 20f;
+
+            document.Add(StatmentHeadertable);
+
+
+            PdfPTable table = new PdfPTable(newpdf.Columns.Count);
+            BaseFont btnColumnHeader = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            Font fntColumnHeader = new Font(btnColumnHeader, 10, 1);
+
+            for (int i = 0; i < newpdf.Columns.Count; i++)
+            {
+                PdfPCell cell = new PdfPCell();
+                cell.AddElement(new Chunk(newpdf.Columns[i].ColumnName.ToUpper(), fntColumnHeader));
+                table.AddCell(cell);
+            }
+
+
+            for (int i = 0; i < newpdf.Rows.Count; i++)
+            {
+                for (int j = 0; j < newpdf.Columns.Count; j++)
+                {
+                    table.AddCell(newpdf.Rows[i][j].ToString());
+                }
+            }
+
+            // ======== ONLY EDIT CODE *ABOVE* THIS LINE ======== 
+
+            // Adding the data to document
+            document.Add(new Phrase("\n"));
+            document.Add(table);
+            document.Add(new Phrase("\n\n\n"));
+            LineSeparator underLine = new LineSeparator(1, 100, null, Element.ALIGN_CENTER, -2);
+            document.Add(new Chunk(underLine));
+            PdfPTable Infotable = new PdfPTable(1);
+            Infotable.HorizontalAlignment = 0;
+            Infotable.WidthPercentage = 100;
+            Infotable.SetWidths(new float[] { 320f });  // then set the column's __relative__ widths
+                                                        // Infotable.DefaultCell.Border = Rectangle.NO_BORDER;
+
+            {
+                PdfPTable nested = new PdfPTable(1);
+                nested.DefaultCell.Border = Rectangle.NO_BORDER;
+                PdfPCell nextPostCell1 = new PdfPCell(new Phrase("                                         Additional Information", titleFontBlue));
+                nextPostCell1.Border = Rectangle.NO_BORDER;
+                nested.AddCell(nextPostCell1);
+                PdfPCell nextPostCell2 = new PdfPCell(new Phrase("\n  1. Interest Income is the money received from the Loan Interest charged to the customers.", bodyFont));
+                nextPostCell2.Border = Rectangle.NO_BORDER;
+                nested.AddCell(nextPostCell2);
+                PdfPCell nextPostCell3 = new PdfPCell(new Phrase("  2. Interest Expenses are the money given to customers in the form of interest that is earned by them on their account(s).", bodyFont));
+                nextPostCell3.Border = Rectangle.NO_BORDER;
+                nested.AddCell(nextPostCell3);
+                nested.AddCell("");
+                PdfPCell nesthousing = new PdfPCell(nested);
+                //nesthousing.Border = Rectangle.NO_BORDER;
+                //nesthousing.BorderColorBottom = new BaseColor(System.Drawing.Color.Black);
+                //nesthousing.BorderWidthBottom = 1f;
+                nesthousing.Rowspan = 5;
+                nesthousing.PaddingBottom = 10f;
+                Infotable.AddCell(nesthousing);
+            }
+            document.Add(Infotable);
+            document.Close();
+
+            byte[] bytes = memoryStream.ToArray();
+            memoryStream.Close();
+
+            Response.Clear();
+            Response.ContentType = "application/pdf";
+
+            string filename = DateTime.Now.ToShortDateString() + DateTime.Now.ToShortTimeString();
+
+            Response.AddHeader("Content-Disposition", "attachment; filename=FIRCA_" + filename + ".pdf");
+            Response.ContentType = "application/pdf";
+            Response.Buffer = true;
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.BinaryWrite(bytes);
+            Response.End();
+            Response.Close();
+
+            return View();
+        }
+
         public ActionResult NetIncome()
         {
             int info = Convert.ToInt32(Session["CustID"]);
@@ -30,8 +209,9 @@ namespace BankOfFiji01.Controllers
             return View(CreateVM);
         }
 
+
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> NetIncome(TransactionViewModel transactions)
         {
             int info = Convert.ToInt32(Session["CustID"]);

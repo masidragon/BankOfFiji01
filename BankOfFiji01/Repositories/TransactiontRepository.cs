@@ -44,5 +44,15 @@ namespace BankOfFiji01.Repositories
 
             return accounts;
         }
+
+        public static async Task<DataTable> GetFIRCA()
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("http://localhost:55303/fircapdf");
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var accounts = JsonConvert.DeserializeObject<DataTable>(jsonString);
+
+            return accounts;
+        }
     }
 }
