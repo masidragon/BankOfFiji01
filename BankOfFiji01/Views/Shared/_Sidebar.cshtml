@@ -35,47 +35,58 @@
                 </li>
 
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.BankStatement) ? "active" : "")">
-                    <a href="@Url.Action("BankStatement", "Transaction")"><i class="fa fa-link"></i> <span>Bank Statement</span></a>
+                    <a href="@Url.Action("BankStatement", "Transaction")"><i class="fa fa-envelope-o"></i> <span>Bank Statement</span></a>
                 </li>
 
             </ul>
             <ul class="sidebar-menu">
                 <li class="header">Transfers</li>
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.Transfer) ? "active" : "")">
-                    <a href="@Url.Action("Transfer", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Transfers To Your Accounts</span></a>
+                    <a href="@Url.Action("Transfer", "Transaction")"><i class="fa fa-refresh"></i> <span>Transfers To Your Accounts</span></a>
                 </li>
 
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.Transfer) ? "active" : "")">
-                    <a href="@Url.Action("AutoTransfer", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Auto Transfers To Your Accounts</span></a>
+                    <a href="@Url.Action("AutoTransfer", "Transaction")"><i class="fa fa-calendar"></i> <span>Auto Transfers To Your Accounts</span></a>
                 </li>
 
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.TransferAnotherAccount) ? "active" : "")">
-                    <a href="@Url.Action("TransferAnotherAccount", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Transfers To Another Customer</span></a>
+                    <a href="@Url.Action("TransferAnotherAccount", "Transaction")"><i class="fa fa-exchange"></i> <span>Transfers To Another Customer</span></a>
                 </li>
 
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.TransferAnotherAccount) ? "active" : "")">
-                    <a href="@Url.Action("AutoTransferAnotherAccount", "Transaction")"><i class="fa fa-arrow-circle-down"></i> <span>Auto Transfers To Another Customer</span></a>
+                    <a href="@Url.Action("AutoTransferAnotherAccount", "Transaction")"><i class="fa fa-clock-o"></i> <span>Auto Transfers To Another Customer</span></a>
                 </li>
             </ul>
+
+            <ul class="sidebar-menu">
+                <li class="header">Internationl Transfers</li>
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.TransferAnotherAccount) ? "active" : "")">
+                    <a href="@Url.Action("IntTransfer", "Transaction")"><i class="fa fa-globe"></i> <span>International Transfer Form</span></a>
+                </li>
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(TransactionController.TransferAnotherAccount) ? "active" : "")">
+                    <a href="@Url.Action("IntTransferStates", "Transaction")"><i class="fa fa-check"></i> <span>International Transfers States</span></a>
+                </li>
+            </ul>
+
             <ul class="sidebar-menu">
                 <li class="header">Bill Payments</li>
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(BillPaymentsController.BillPayment) ? "active" : "")">
-                    <a href="@Url.Action("BillPayment", "BillPayments")"><i class="fa fa-link"></i> <span>Manual Bill Payment</span></a>
+                    <a href="@Url.Action("BillPayment", "BillPayments")"><i class="fa fa-credit-card"></i> <span>Manual Bill Payment</span></a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(BillPaymentsController.BillPayment) ? "active" : "")">
-                    <a href="@Url.Action("AutoBillPayment", "BillPayments")"><i class="fa fa-link"></i> <span>Automatic Bill Payment</span></a>
+                    <a href="@Url.Action("AutoBillPayment", "BillPayments")"><i class="fa fa-credit-card-alt"></i> <span>Automatic Bill Payment</span></a>
                 </li>
             </ul>
             <ul class="sidebar-menu">
                 <li class="header">Loan Application</li>
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(LoansApplicationController.LoanApplication) ? "active" : "")">
-                    <a href="@Url.Action("LoanApplication", "LoansApplication")"><i class="fa fa-link"></i> <span>Apply Loan</span></a>
+                    <a href="@Url.Action("LoanApplication", "LoansApplication")"><i class="fa fa-institution"></i> <span>Apply Loan</span></a>
                 </li>
 
             </ul>
         }
-        
 
-            @* END Menu *@
-</section>
+
+        @* END Menu *@
+    </section>
 </aside>

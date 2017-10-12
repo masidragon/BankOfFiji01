@@ -1,20 +1,40 @@
 ﻿@model IEnumerable<BankOfFiji01.Models.IntTransferStatesViewModel>
 
 @{
-    ViewBag.Title = "IntTransferStates";
+    ViewBag.Title = "International Transfers States";
 }
 
-<h2>IntTransferStates</h2>
-
-<table>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.State</td>
-        </tr>
-    }
-</table>
-
-<script type=”text/javascript”>
-    setInterval(“$(‘#_recentfive’).load(‘Transaction/IntTransferStatesResults’)”,2000);
-</script> 
+<section>
+    <div class="row" width="100">
+        <div class="col-xs-12" width="100">
+            <div class="box box-danger" width="100">
+                <div class="box-header">
+                    <h3 class="box-title">International Transfers States</h3>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>Transfer State</th>
+                                <th>Source Account Number</th>
+                                <th>Destination Account Number</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.State</td>
+                                    <td>@item.SourceAccount</td>
+                                    <td>@item.DestinationAccount</td>
+                                    <td>@item.Amount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

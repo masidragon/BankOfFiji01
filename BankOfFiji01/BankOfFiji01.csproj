@@ -346,7 +346,6 @@
     <Content Include="Views\Dashboard\Notifications.cshtml" />
     <Content Include="Views\Dashboard\EditNotification.cshtml" />
     <Content Include="Views\Transaction\IntTransfer.cshtml" />
-    <Content Include="Views\Transaction\IntTransferStatesResults.cshtml" />
     <Content Include="Views\Transaction\IntTransferStates.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
